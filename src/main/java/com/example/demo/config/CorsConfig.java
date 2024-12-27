@@ -10,7 +10,10 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins("http://localhost:3001");
+                registry.addMapping("/**") // すべてのエンドポイントに適用
+                .allowedOrigins("http://localhost:3000") // 許可するオリジン
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 許可するHTTPメソッド
+                .allowedHeaders("*"); // 許可するヘッダー
             }
         };
     }
