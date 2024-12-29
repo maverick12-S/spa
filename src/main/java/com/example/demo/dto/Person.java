@@ -5,6 +5,16 @@ public class Person {
 	private Long id;
 	private String name;
 	private int age;
+	
+	public Person(Long id, String name,int age) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+	
+	public Person() {}
+	
+	
 
 	public Long getId() {
 		return id;
@@ -28,6 +38,10 @@ public class Person {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public boolean isValid() {
+	    return this.name != null && !this.name.isEmpty() && this.age > 0;
 	}
 
 }
