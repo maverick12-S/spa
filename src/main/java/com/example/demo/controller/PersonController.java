@@ -1,11 +1,17 @@
 package com.example.demo.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +24,7 @@ import com.example.demo.service.PersonService;
 @RestController
 @RequestMapping("/apiData")
 public class PersonController {
+	private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 	private final PersonService personService;
 	private final ParserUtil parser;
 
@@ -41,6 +48,26 @@ public class PersonController {
 
 		return response;
 	}
+	
+	@GetMapping("/allId")
+	public Map<String, Object> allReceiveId(){
+		try {
+		List<Person> persons = personService.getAllPerson();
+		
+		Map<String, Object> response = persons.stream()
+				.collect(Collectors.toMap(
+						person -> "id" + person.getId(),
+						person -> person
+						));
+		
+		return response;
+		}catch(Exception e) {
+			log.debug("DEBUG: Preparing data for processing"+ e);
+			throw e;
+			
+		}
+	}
+	 
 
 	@PostMapping("/add")
 	 public ResponseEntity<Map<String, Object>> addUser(@RequestBody Map<String, Object> requestData) {
