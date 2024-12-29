@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,19 @@ public class PersonController {
 
 		return response;
 	}
+	
+	@PostMapping("/delete")
+	public Map<String,String> deleteUser(@RequestBody Map<String, Object> requestData){
+		
+		long id = parser.parseId(requestData.get("id"));
+		
+		personService.deletePerson(id);
+		
+		Map<String,String> response = new HashMap<>();
+		response.put("message","指定された"+id+"番のユーザー情報を削除しました。");
+		return response;
+	}
+	
 	
 	@GetMapping("/allId")
 	public Map<String, Object> allReceiveId(){
