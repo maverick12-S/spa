@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserMapper">
+	<select id="findById" parameterType="long"
+		resultType="com.example.demo.dto.User">
+		SELECT * FROM users WHERE id = #{id}
+	</select>
+	
+	<select id="findByName" parameterType="String"
+		resultType="com.example.demo.dto.User">
+		SELECT * FROM users WHERE username= #{username}
+	</select>
+	<update id="updateUser" parameterType="com.example.demo.dto.User">
+    UPDATE users
+    SET 
+        username = #{username},
+        password = #{password},
+        token = #{token}
+    WHERE id = #{id}
+</update>
+
+</mapper>
